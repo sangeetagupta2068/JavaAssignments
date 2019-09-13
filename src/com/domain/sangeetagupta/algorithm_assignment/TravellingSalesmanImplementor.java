@@ -29,6 +29,7 @@ public class TravellingSalesmanImplementor {
         int count = 0;
         String distances;
 
+        //we have assumed that the file values are separated by space.
         while ((distances = bufferedReader.readLine()) != null) {
             String[] temp = distances.split("  ");
             adjacencyMatrix[count] = Arrays.stream(temp).mapToInt(Integer::valueOf).toArray();
