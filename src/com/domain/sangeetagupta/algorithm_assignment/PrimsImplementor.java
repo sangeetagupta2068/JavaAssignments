@@ -3,7 +3,6 @@ package com.domain.sangeetagupta.algorithm_assignment;
 
 import java.util.Comparator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.PriorityQueue;
 
 import javafx.util.Pair;
@@ -13,7 +12,7 @@ public class PrimsImplementor {
     private LinkedList<Edge>[] adjacencylist;
     private boolean[] mst;
     private Node[] nodes;
-    private int[] key;
+    private int[] keys;
     private PriorityQueue<Pair<Integer, Integer>> priorityQueue;
 
     public PrimsImplementor(int graphSize) {
@@ -26,29 +25,29 @@ public class PrimsImplementor {
         mst = new boolean[graphSize];
         nodes = new Node[graphSize];
         //keys used for checking if priority queue updation is required
-        key = new int[graphSize];
+        keys = new int[graphSize];
 
 
-        for (int i = 0; i < graphSize; i++) {
+        for (int count = 0; count < graphSize; count++) {
             //initialize all the keys to infinity
-            key[i] = Integer.MAX_VALUE;
+            keys[count] = Integer.MAX_VALUE;
             //initialize nodes for all the vertices
-            nodes[i] = new Node();
+            nodes[count] = new Node();
         }
 
         //Initialize priority queue
         priorityQueue = new PriorityQueue<>(graphSize, new Comparator<Pair<Integer, Integer>>() {
             @Override
             public int compare(Pair<Integer, Integer> p1, Pair<Integer, Integer> p2) {
-                //sort using key values
+                //sort using keys values
                 int key1 = p1.getKey();
                 int key2 = p2.getKey();
                 return key1 - key2;
             }
         });
 
-        key[0] = 0;
-        Pair<Integer, Integer> pair = new Pair<>(key[0], 0);
+        keys[0] = 0;
+        Pair<Integer, Integer> pair = new Pair<>(keys[0], 0);
         priorityQueue.offer(pair);
 
     }
@@ -80,12 +79,12 @@ public class PrimsImplementor {
                     int destination = edge.getDestination();
                     int newKey = edge.getWeight();
 
-                    if (key[destination] > newKey) {
+                    if (keys[destination] > newKey) {
                         Pair<Integer, Integer> pair = new Pair<>(newKey, destination);
                         priorityQueue.offer(pair);
                         nodes[destination].setVertex(extractedVertex);
                         nodes[destination].setCost(newKey);
-                        key[destination] = newKey;
+                        keys[destination] = newKey;
                     }
 
                 }
@@ -99,10 +98,10 @@ public class PrimsImplementor {
         System.out.println("Minimum Spanning Tree: ");
         for (int count = 1; count < graphSize; count++) {
             System.out.println("Edge: " + count + " - " + nodes[count].getVertex() +
-                    " key: " + nodes[count].getCost());
+                    " keys: " + nodes[count].getCost());
             totalMinWeight += nodes[count].getCost();
         }
-        System.out.println("Total minimum key: " + totalMinWeight);
+        System.out.println("Total minimum keys: " + totalMinWeight);
     }
 }
 
