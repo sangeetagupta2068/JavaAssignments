@@ -3,3 +3,10 @@ begin
 update employee set salary = salary_new where id= empno;
 end
 //
+
+//WAP getSal takes one parameter which takes id
+create or replace procedure get_salary(empno int,out sal int)
+begin
+select salary into sal from employee where id = empno;
+end
+//
