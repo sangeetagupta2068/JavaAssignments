@@ -1,0 +1,5 @@
+create procedure increasesalary(empno INT,salary_new INT)
+begin
+update employee set salary = salary_new where id= empno;
+end
+//
